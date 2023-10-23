@@ -16,6 +16,7 @@ scipy
 Flask
 Flask-Cors
 gdown
+opencv-python
 -e .
 kdcnnClassifier~=0.0.0
 setuptools~=65.5.0
