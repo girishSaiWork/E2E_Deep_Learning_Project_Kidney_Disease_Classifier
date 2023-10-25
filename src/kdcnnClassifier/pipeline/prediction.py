@@ -10,10 +10,10 @@ class PredictionPipeline:
 
     def predict(self):
         # load model
-        model = load_model(os.path.join("artifacts", "training", "trained", "model.h5"))
+        model = load_model(os.path.join("T_MODEL", "model.h5"))
 
         imagename = self.filename
-        test_image = image.load_img(imagename, target_size=(200, 200),grayscale=True)
+        test_image = image.load_img(imagename, target_size=(200, 200), grayscale=True)
         test_image = image.img_to_array(test_image)
         test_image = np.expand_dims(test_image, axis=0)
         result = np.argmax(model.predict(test_image), axis=1)
@@ -31,4 +31,3 @@ class PredictionPipeline:
         else:
             prediction = 'Tumor'
             return [{"image": prediction}]
-
