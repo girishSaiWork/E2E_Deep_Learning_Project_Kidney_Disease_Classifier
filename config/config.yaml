@@ -10,5 +10,11 @@ data_ingestion:
 training:
     root_dir: artifacts/training
     output_dir: artifacts/training
-    trained_model_path: artifacts/training/model.h5
+    trained_model_path: artifacts/training/trained/model.h5
 
+
+model_evaluation:
+    root_dir: artifacts/training
+    MLFLOW_TRACKING_URI: https://dagshub.com/girishSaiWork/E2E_Deep_Learning_Project_Kidney_Disease_Classifier.mlflow
+    MLFLOW_TRACKING_USERNAME: girishSaiWork
+    MLFLOW_TRACKING_PASSWORD: 069a4dd67a4255235d6151e96526830768fc5a80

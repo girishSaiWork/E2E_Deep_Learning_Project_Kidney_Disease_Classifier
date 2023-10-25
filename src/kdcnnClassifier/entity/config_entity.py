@@ -27,3 +27,26 @@ class TrainingConfig:
     params_rescale: float
     params_class_mode: str
     params_classes: int
+
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    root_dir: Path
+    output_dir: Path
+    trained_model_path: Path
+    training_data: Path
+    mlflow_uri: str
+    mlflow_uname: str
+    mlflow_pwd: str
+    all_params: dict
+    params_epochs: int
+    params_batch_size: int
+    params_color_mode: str
+    params_img_h: int
+    params_img_w: int
+    params_train_ratio: float
+    params_validation_ratio: float
+    params_test_ratio: float
+    params_rescale: float
+    params_class_mode: str
+    params_classes: int

@@ -14,8 +14,8 @@ class ModelTrainingPipeline:
         config = ConfigurationManager()
         training_config = config.get_training_config()
         training = Training(config=training_config)
-        # training.data_splitter()
-        # training.eval_folders()
+        training.data_splitter()
+        training.eval_folders()
         train_data_set, val_data_set, test_data_set = training.train_valid_generator()
         predictions, history = training.model_creation(train_data_set, val_data_set, test_data_set)
         predicted_values = [np.argmax(i) for i in predictions]

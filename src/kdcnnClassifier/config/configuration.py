@@ -1,5 +1,5 @@
 from kdcnnClassifier.constants import *
-from kdcnnClassifier.entity.config_entity import DataIngestionConfig, TrainingConfig
+from kdcnnClassifier.entity.config_entity import DataIngestionConfig, TrainingConfig, EvaluationConfig
 from kdcnnClassifier.utils.common import create_directories, read_yaml
 import os
 
@@ -54,3 +54,34 @@ class ConfigurationManager:
         )
 
         return training_config
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+        training = self.config.training
+        model_eval = self.config.model_evaluation
+        data_dir = self.config.data_ingestion.root_dir
+        params = self.params
+        training_data = self.config.data_ingestion.unzip_dir
+
+        eval_config = EvaluationConfig(
+            root_dir=Path(training.root_dir),
+            trained_model_path=Path(training.trained_model_path),
+            output_dir=Path(training.output_dir),
+            all_params=self.params,
+            training_data=Path(training_data),
+            mlflow_uri=model_eval.MLFLOW_TRACKING_URI,
+            mlflow_uname=model_eval.MLFLOW_TRACKING_USERNAME,
+            mlflow_pwd=model_eval.MLFLOW_TRACKING_PASSWORD,
+            params_epochs=params.EPOCHS,
+            params_batch_size=params.BATCH_SIZE,
+            params_class_mode=params.CLASS_MODE,
+            params_img_h=params.IMG_HEIGHT,
+            params_img_w=params.IMG_WIDTH,
+            params_train_ratio=params.TRAIN_RATIO,
+            params_validation_ratio=params.VALIDATION_RATIO,
+            params_test_ratio=params.TEST_RATIO,
+            params_rescale=params.RESCALE,
+            params_color_mode=params.COLOR_MODE,
+            params_classes=params.CLASSES,
+        )
+
+        return eval_config

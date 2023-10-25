@@ -1,0 +1,45 @@
+stages:
+  data_ingestion:
+    cmd: python src/kdcnnClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/kdcnnClassifier/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/data
+
+  training:
+    cmd: python src/kdcnnClassifier/pipeline/stage_02_model_training.py
+    deps:
+      - src/kdcnnClassifier/pipeline/stage_02_model_training.py
+      - config/config.yaml
+      - artifacts/data_ingestion/data
+    params:
+      - TRAIN_RATIO
+      - VALIDATION_RATIO
+      - TEST_RATIO
+      - IMG_HEIGHT
+      - IMG_WIDTH
+      - BATCH_SIZE
+      - CLASS_MODE
+      - EPOCHS
+      - CLASSES
+      - COLOR_MODE
+      - LEARNING_RATE
+    outs:
+      - artifacts/training/trained/model.h5
+
+
+  model_evaluation:
+    cmd: python src/kdcnnClassifier/pipeline/stage_03_model_evaluation.py
+    deps:
+      - src/kdcnnClassifier/pipeline/stage_03_model_evaluation.py
+      - config/config.yaml
+      - artifacts/data_ingestion/data
+      - artifacts/training/trained/model.h5
+    params:
+      - IMG_HEIGHT
+      - IMG_WIDTH
+      - BATCH_SIZE
+    metrics:
+    - scores.json:
+        cache: false
