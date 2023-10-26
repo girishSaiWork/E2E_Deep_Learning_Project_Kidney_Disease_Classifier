@@ -50,7 +50,7 @@ https://www.kaggle.com/datasets/nazmul0087/ct-kidney-dataset-normal-cyst-tumor-a
 2) Using the TensorFlows ImageDatagenerator we have created the associated the train, validation and test datasets and passed them to the model as input for training.
 3) We have used the Conv2D for feature extraction and ANN for classification.
 
-## Features
+## Technologies Used
 1) We used the DagsHub for managing the AI model<br>
 Reference : https://dagshub.com
 Run Dagshub related variables to export as env variables:
