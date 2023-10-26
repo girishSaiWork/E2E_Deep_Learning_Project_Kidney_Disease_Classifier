@@ -1,0 +1,83 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/kdcnnClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 73ed380d3523f23bc2edc1b44e405c2c
+      size: 820
+    - path: src/kdcnnClassifier/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 12a82907a79a9dbb6fa022d5f3394d56
+      size: 907
+    outs:
+    - path: artifacts/data_ingestion/data
+      hash: md5
+      md5: 480f02db6967e2017d804fca0430c1a4.dir
+      size: 1661580918
+      nfiles: 12446
+  training:
+    cmd: python src/kdcnnClassifier/pipeline/stage_02_model_training.py
+    deps:
+    - path: artifacts/data_ingestion/data
+      hash: md5
+      md5: 480f02db6967e2017d804fca0430c1a4.dir
+      size: 1661580918
+      nfiles: 12446
+    - path: config/config.yaml
+      hash: md5
+      md5: 73ed380d3523f23bc2edc1b44e405c2c
+      size: 820
+    - path: src/kdcnnClassifier/pipeline/stage_02_model_training.py
+      hash: md5
+      md5: d633013b0c3df9c06f9a5e1e8a075336
+      size: 1372
+    params:
+      params.yaml:
+        BATCH_SIZE: 100
+        CLASSES: 4
+        CLASS_MODE: categorical
+        COLOR_MODE: grayscale
+        EPOCHS: 4
+        IMG_HEIGHT: 200
+        IMG_WIDTH: 200
+        LEARNING_RATE: 0.01
+        TEST_RATIO: 0.2
+        TRAIN_RATIO: 0.6
+        VALIDATION_RATIO: 0.2
+    outs:
+    - path: artifacts/training/trained/model.h5
+      hash: md5
+      md5: 3a2ace00be323a9cfc0b50dab9ceb47c
+      size: 2899000
+  model_evaluation:
+    cmd: python src/kdcnnClassifier/pipeline/stage_03_model_evaluation.py
+    deps:
+    - path: artifacts/data_ingestion/data
+      hash: md5
+      md5: 480f02db6967e2017d804fca0430c1a4.dir
+      size: 1661580918
+      nfiles: 12446
+    - path: artifacts/training/trained/model.h5
+      hash: md5
+      md5: 3a2ace00be323a9cfc0b50dab9ceb47c
+      size: 2899000
+    - path: config/config.yaml
+      hash: md5
+      md5: 73ed380d3523f23bc2edc1b44e405c2c
+      size: 820
+    - path: src/kdcnnClassifier/pipeline/stage_03_model_evaluation.py
+      hash: md5
+      md5: 5d7ad3a164ca7f19cfddde00fefcb9ab
+      size: 928
+    params:
+      params.yaml:
+        BATCH_SIZE: 100
+        IMG_HEIGHT: 200
+        IMG_WIDTH: 200
+    outs:
+    - path: scores.json
+      hash: md5
+      md5: 5655f2315eb75383744e3508c8b388f7
+      size: 74
