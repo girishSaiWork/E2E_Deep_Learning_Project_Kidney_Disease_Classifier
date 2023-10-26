@@ -3,7 +3,7 @@
 This project classifies the Kidney CT scan images into 4 different classes namely Crystal, Normal, Stone and Tumor.
 We have use as DeepLearning Neural Network named Convolution Neural Network for Feature Extraction and Artificial Neural Network for classfication
 
-<img src="image.png" alt="Description of the image">
+<img src="image.png" alt="Predicted Image">
 
 ## Workflows
 Below mentioned is the process or flow of the updates that will happen in the project : 
