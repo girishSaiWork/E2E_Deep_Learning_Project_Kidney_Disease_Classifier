@@ -1,5 +1,10 @@
 # E2E_Deep_Learning_Project_Kidney_Disease_Classifier
 
+This project classifies the Kidney CT scan images into 4 different classes namely Crystal, Normal, Stone and Tumor.
+We have use as DeepLearning Neural Network named Convolution Neural Network for Feature Extraction and Artificial Neural Network for classfication
+
+![Alt text](image.png)
+
 ## Workflows
 Below mentioned is the process or flow of the updates that will happen in the project : 
 1. Update config.yaml
@@ -15,115 +20,54 @@ Below mentioned is the process or flow of the updates that will happen in the pr
 
 ## How to run?
 ## STEPS:
-
 <b>Clone the repository</b>
 
 https://github.com/girishSaiWork/E2E_Deep_Learning_Project_Kidney_Disease_Classifier <br>
-<b>STEP 01- Create a conda environment after opening the repository</b><br>
+<b>
+STEP 01- Create a conda environment after opening the repository</b><br>
 ```bash
 python -m venv venv
 
 .\venv\Scripts\Activate.ps1
 ```
 STEP 02- install the requirements
+```bash
 pip install -r requirements.txt
-# Finally run the following command
-python app.py
-Now,
+```
+STEP 03- For necessary folder creation run the following python script
+```bash
+python template.py
+```
+## Data Collection
+We have used the kaagle dataset from the following URL: <br>
+https://www.kaggle.com/datasets/nazmul0087/ct-kidney-dataset-normal-cyst-tumor-and-stone<br>
 
-open up you local host and port
-MLflow
-Documentation
+1) We have used G-drive as the cloud storage or the source team from where we have e been treating as the source of our data.
+2) Downloading the from G-drive and extracting the image data to the local for procesing
 
-MLflow tutorial
+## Modeling
+1) We used the python module splitfoders to create train, validation and test datasets.
+2) Using the TensorFlows ImageDatagenerator we have created the associated the train, validation and test datasets and passed them to the model as input for training.
+3) We have used the Conv2D for feature extraction and ANN for classification.
 
-cmd
-mlflow ui
-dagshub
-dagshub
+## Features
+1) We used the DagsHub for managing the AI model<br>
+Reference : https://dagshub.com
+Run Dagshub related variables to export as env variables:
+```bash
+export MLFLOW_TRACKING_URI=https://dagshub.com/girishSaiWork/Kidney-Disease-Classification-MLflow-DVC.mlflow
+export MLFLOW_TRACKING_USERNAME= username
+export MLFLOW_TRACKING_PASSWORD= password
+```
 
-MLFLOW_TRACKING_URI=https://dagshub.com/entbappy/Kidney-Disease-Classification-MLflow-DVC.mlflow
-MLFLOW_TRACKING_USERNAME=entbappy
-MLFLOW_TRACKING_PASSWORD=6824692c47a369aa6f9eac5b10041d5c8edbcef0
-python script.py
-
-Run this to export as env variables:
-
-export MLFLOW_TRACKING_URI=https://dagshub.com/entbappy/Kidney-Disease-Classification-MLflow-DVC.mlflow
-
-export MLFLOW_TRACKING_USERNAME=entbappy 
-
-export MLFLOW_TRACKING_PASSWORD=6824692c47a369aa6f9eac5b10041d5c8edbcef0
-DVC cmd
+2) MLFlow for tracking the changes in the model<br>
+Reference : https://mlflow.org/docs/latest/index.html
+3) For Data Version Control( which can track the changes in the data, it will skip running the stages in the Project flow if there are no changes).<br>
+Reference : https://dvc.org/doc
+Run the DVC commands in the project to track the changes in the data in windows terminal(cmd) or git bash terminal<br>
+```bash
 dvc init
 dvc repro
 dvc dag
-About MLflow & DVC
-MLflow
+```
 
-Its Production Grade
-Trace all of your expriements
-Logging & taging your model
-DVC
-
-Its very lite weight for POC only
-lite weight expriements tracker
-It can perform Orchestration (Creating Pipelines)
-AWS-CICD-Deployment-with-Github-Actions
-1. Login to AWS console.
-2. Create IAM user for deployment
-#with specific access
-
-1. EC2 access : It is virtual machine
-
-2. ECR: Elastic Container registry to save your docker image in aws
-
-
-#Description: About the deployment
-
-1. Build docker image of the source code
-
-2. Push your docker image to ECR
-
-3. Launch Your EC2 
-
-4. Pull Your image from ECR in EC2
-
-5. Lauch your docker image in EC2
-
-#Policy:
-
-1. AmazonEC2ContainerRegistryFullAccess
-
-2. AmazonEC2FullAccess
-3. Create ECR repo to store/save docker image
-- Save the URI: 566373416292.dkr.ecr.us-east-1.amazonaws.com/chicken
-4. Create EC2 machine (Ubuntu)
-5. Open EC2 and Install docker in EC2 Machine:
-#optinal
-
-sudo apt-get update -y
-
-sudo apt-get upgrade
-
-#required
-
-curl -fsSL https://get.docker.com -o get-docker.sh
-
-sudo sh get-docker.sh
-
-sudo usermod -aG docker ubuntu
-
-newgrp docker
-6. Configure EC2 as self-hosted runner:
-setting>actions>runner>new self hosted runner> choose os> then run command one by one
-7. Setup github secrets:
-AWS_ACCESS_KEY_ID=
-
-AWS_SECRET_ACCESS_KEY=
-
-AWS_REGION = us-east-1
-
-AWS_ECR_LOGIN_URI = demo>>  566373416292.dkr.ecr.ap-south-1.amazonaws.com
-
-ECR_REPOSITORY_NAME = simple-app
